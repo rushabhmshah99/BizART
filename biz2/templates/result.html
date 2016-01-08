@@ -1,0 +1,12 @@
+<html>
+	<head></head>
+	<body>
+		<form action="." method="POST">
+			{% csrf_token %}
+			<input type="text" name="num1">
+			<input type="text" name="num2">
+			<input type="submit" value="add">
+		</form>
+		<div class="res">{% if result %}{{ result }}{% endif %}</div>
+	</body>
+</html>
