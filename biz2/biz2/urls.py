@@ -19,4 +19,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^add/', 'polls.views.addition'),
+    url(r'^index/', 'themeSetup.views.index'),
+ 
+
 ]

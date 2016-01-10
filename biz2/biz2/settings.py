@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls'
+    'polls',
+    'themeSetup',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'biz2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates', 'templates/Theme'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
