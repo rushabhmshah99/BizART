@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+{% include 'include.html' %}
+</head>
+<body class="sidebar-wide">
+<!-- Navbar -->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header"><a class="navbar-brand" href="#">Logo: BizART </a>
+  </div>
+  <ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
+    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-people"></i><span class="label label-default">2</span></a>
+      <div class="popup dropdown-menu dropdown-menu-right">
+        <div class="popup-header"><a href="#" class="pull-left"><i class="icon-spinner7"></i></a><span>Activity</span><a href="#" class="pull-right"><i class="icon-paragraph-justify"></i></a></div>
+        <ul class="activity">
+          <li> <i class="icon-cart-checkout text-success"></i>
+            <div> <a href="#">Eugene</a> ordered 2 copies of <a href="#">OEM license</a> <span>14 minutes ago</span> </div>
+          </li>
+          <li> <i class="icon-heart text-danger"></i>
+            <div> Your <a href="#">latest post</a> was liked by <a href="#">Audrey Mall</a> <span>35 minutes ago</span> </div>
+          </li>
+          <li> <i class="icon-checkmark3 text-success"></i>
+            <div> Mail server was updated. See <a href="#">changelog</a> <span>About 2 hours ago</span> </div>
+          </li>
+          <li> <i class="icon-paragraph-justify2 text-warning"></i>
+            <div> There are <a href="#">6 new tasks</a> waiting for you. Don't forget! <span>About 3 hours ago</span> </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+   
+
+    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>Eugene Kopyov</span><i class="caret"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right icons-right">
+     
+        <li><a href="login_simple.html"><i class="icon-exit"></i> Logout</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!-- /navbar -->
+<!-- Page container -->
+<div class="page-container sidebar-hidden">
+  
+  <!-- Page content -->
+  <div class="page-content">
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-title">
+        <h3>Team Members</h3>
+      </div>
+      <div id="reportrange" class="range">
+        <div class="visible-xs header-element-toggle"><a class="btn btn-primary btn-icon"><i class="icon-calendar"></i></a></div>
+        
+        </div>
+    </div>
+    <!-- /page header -->
+      
+    <!-- Page tabs -->
+    <div class="tabbable page-tabs">
+     
+      <div class="tab-content">
+        <!-- First tab -->
+        <div class="tab-pane active fade in" id="grid-unboxed">
+         
+          <!-- Unboxed grid -->
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="block">
+                <div class="thumbnail"><a href=" {% static "images/demo/users/face1.png" %}" class="thumb-zoom lightbox" title="Eugene A. Kopyov"><img src=" {% static "images/demo/users/face1.png" %}" alt=""></a>
+                  <div class="caption text-center">
+                    <h6>Rushabh M. Shah<small>Founder</small></h6>
+                    <div class="icons-group"> <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a> <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a> <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a> </div>
+                  </div>
+                </div>
+              </div>
+             
+              
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="block">
+                <div class="thumbnail"><a href="{% static "images/demo/users/face4.png" %}"  class="thumb-zoom lightbox" title="Sophia R. McJamer"> <img src=" {% static "images/demo/users/face4.png" %}"   alt=""> </a>
+                  <div class="caption text-center">
+                    <h6>Tanvi Chandna<small>Founder</small></h6>
+                    <div class="icons-group"> <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a> <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a> <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a> </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="block">
+                <div class="thumbnail"><a href="{% static "images/demo/users/face7.png" %}"  class="thumb-zoom lightbox" title="Noah Kennedy"> <img src=" {% static "images/demo/users/face7.png" %}" alt=""> </a>
+                  <div class="caption text-center">
+                    <h6>Apekshit Jotwani<small>Founder</small></h6>
+                    <div class="icons-group"> <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a> <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a> <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a> </div>
+                  </div>
+                </div>
+              </div>
+           
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="block">
+                <div class="thumbnail"><a href="{% static "images/demo/users/face10.png" %}"  class="thumb-zoom lightbox" title="Will DeBrandon"> <img src=" {% static "images/demo/users/face10.png" %}" alt=""> </a>
+                  <div class="caption text-center">
+                    <h6>Will DeBrandon <small>Print designer</small></h6>
+                    <div class="icons-group"> <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a> <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a> <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a> </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          <!-- /unboxed grid -->
+        
+        </div>
+        <!-- /first tab -->
+       
+     
+      </div>
+    </div>
+    <!-- page tabs -->
+   <!-- Footer -->
+<div class="footer clearfix">
+  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
+  <div class="pull-right icons-group"> <a href="/aboutus"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div>
+<!-- /footer -->
+  </div>
+  <!-- /page content -->
+</div>
+<!-- /page container -->
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'include.html' %}
+</head>
+<body class="sidebar-wide">
+<!-- Navbar -->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header"><a class="navbar-brand" href="#">Logo: BizART </a>
+  </div>
+  <ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
+    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-people"></i><span class="label label-default">2</span></a>
+      <div class="popup dropdown-menu dropdown-menu-right">
+        <div class="popup-header"><a href="#" class="pull-left"><i class="icon-spinner7"></i></a><span>Activity</span><a href="#" class="pull-right"><i class="icon-paragraph-justify"></i></a></div>
+        <ul class="activity">
+          <li> <i class="icon-cart-checkout text-success"></i>
+            <div> <a href="#">Eugene</a> ordered 2 copies of <a href="#">OEM license</a> <span>14 minutes ago</span> </div>
+          </li>
+          <li> <i class="icon-heart text-danger"></i>
+            <div> Your <a href="#">latest post</a> was liked by <a href="#">Audrey Mall</a> <span>35 minutes ago</span> </div>
+          </li>
+          <li> <i class="icon-checkmark3 text-success"></i>
+            <div> Mail server was updated. See <a href="#">changelog</a> <span>About 2 hours ago</span> </div>
+          </li>
+          <li> <i class="icon-paragraph-justify2 text-warning"></i>
+            <div> There are <a href="#">6 new tasks</a> waiting for you. Don't forget! <span>About 3 hours ago</span> </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+   
+
+    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>Eugene Kopyov</span><i class="caret"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right icons-right">
+     
+        <li><a href="login_simple.html"><i class="icon-exit"></i> Logout</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!-- /navbar -->
+<!-- Page container -->
+<div class="page-container sidebar-hidden">
+
+  <!-- Page content -->
+  <div class="page-content">
+    <!-- Page header -->
+    <div class="page-header">
+      
+      
+      <div id="reportrange" class="range">
+        <div class="visible-xs header-element-toggle"><a class="btn btn-primary btn-icon"><i class="icon-calendar"></i></a></div>
+        <div class="date-range"></div>
+        <span class="label label-danger">9</span></div>
+    </div>
+    <!-- /page header -->
+
+    <!-- Search line -->
+    <form action="." method="POST" class="search-line block" role="form">
+    {% csrf_token %}
+      <span class="subtitle" align="center"> Logo</span>
+      <div class="input-group">
+        <div class="search-control">
+          <input type="text" class="form-control autocomplete" placeholder="What are you looking for?" name="query">
+      
+        </div>
+        <span class="input-group-btn">
+        <button class="btn btn-primary"  type="button">Search</button>
+        </span></div>
+    </form>
+    <!-- /search line -->
+    {% if query %}
+    <div class="res">The query is: {{ query }}</div>
+    {% endif %}
+    
+   <!-- Footer -->
+<div class="footer clearfix" >
+  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
+  <div class="pull-right icons-group"> <a href="/aboutus"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div>
+<!-- /footer -->
+  </div>
+  <!-- /page content -->
+</div>
+<!-- /page container -->
+</body>
+</html>

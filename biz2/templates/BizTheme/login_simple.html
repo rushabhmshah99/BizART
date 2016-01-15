@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+{% include 'include.html' %}
+
+</head>
+<body class="full-width page-condensed">
+<!-- Navbar -->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Logo: BizART</a></div>
+  </div>
+<!-- /navbar -->
+<!-- Login wrapper -->
+<div class="login-wrapper">
+  <form action="login_advanced" method="POST" role="form">
+  {% csrf_token %}
+    <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">User Login</span>
+      <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
+       
+      </div>
+    </div>
+    <div class="well">
+      <div class="form-group has-feedback">
+        <label>Username</label>
+        <input type="text" class="form-control" placeholder="Username" name="username">
+        <i class="icon-users form-control-feedback"></i></div>
+      <div class="row form-actions">
+        <div class="col-xs-6">
+          <div class="checkbox checkbox-success">
+            <label>
+              <input type="checkbox" class="styled">
+              Remember me</label>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Next</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- /login wrapper -->
+<!-- Footer -->
+<div class="footer clearfix">
+  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
+  <div class="pull-right icons-group"> <a href="aboutus.html"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div>
+<!-- /footer -->
+</body>
+</html>

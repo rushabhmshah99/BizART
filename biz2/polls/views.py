@@ -7,6 +7,7 @@ def addition(request):
 		num1 = request.POST['num1']
 		num2 = request.POST['num2']
 		ress = eval(num1) + eval(num2)
-		return render_to_response('result.html', {'result': ress}, context_instance=RequestContext(request))
+
+		return render_to_response('result.php', {'result': ress}, context_instance=RequestContext(request))
 	else:
-		return render_to_response('result.html', {}, context_instance=RequestContext(request))
+		return render_to_response('result.php', {}, context_instance=RequestContext(request))
