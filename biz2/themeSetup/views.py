@@ -17,18 +17,15 @@ def login_simple(request):
 def login_advanced(request, username):
 	if request.POST:
 		username = request.POST['username']
+		if len(username) == 0:
+			return redirect('/login_simple/');	
+	
 		password = request.POST['password']
 		return redirect('/search', username = username)
 	else:
-		print username
-		return render_to_response('login_advanced.html', {'username':username}, context_instance=RequestContext(request))
-def login_advanced(request):
-	if request.POST:
-		username = request.POST['username']
-		password = request.POST['password']
-		return redirect('/search', username = username)
-	else:
-		print username
+		if len(username) == 0:
+			return redirect('/login_simple/');	
+	
 		return render_to_response('login_advanced.html', {'username':username}, context_instance=RequestContext(request))
 
 def search(request):

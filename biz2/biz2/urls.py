@@ -20,12 +20,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^add/', 'polls.views.addition'),
     url(r'^index/', 'themeSetup.views.index'),
     url(r'^aboutus/', 'themeSetup.views.aboutus'),
     url(r'^login_simple/', 'themeSetup.views.login_simple'),
-    url(r'^login_advanced/(?P<username>[a-z]+)', 'themeSetup.views.login_advanced'),
-     url(r'^login_advanced/', 'themeSetup.views.login_advanced'),
+    url(r'^login_advanced/(?P<username>[a-z]*)', 'themeSetup.views.login_advanced'),
     url(r'^search/', 'themeSetup.views.search'),
        
  

@@ -24,7 +24,7 @@
           <h6>Tanvi Chandna<small>Business Analyst</small></h6>
         </div>
       </div>
-      <input type="hidden" name="username" value="{{ username }}" />
+      <input type="hidden" name="username" value="{% if username %}{{ username }}{% endif %}" />
       <div class="form-group has-feedback has-feedback-no-label">
         <input type="password" class="form-control" name="password" placeholder="Password">
         <i class="icon-lock form-control-feedback"></i></div>
