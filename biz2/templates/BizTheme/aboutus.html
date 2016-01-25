@@ -31,10 +31,10 @@
     </li>
    
 
-    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>Eugene Kopyov</span><i class="caret"></i></a>
+    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>{{ username }}</span><i class="caret"></i></a>
       <ul class="dropdown-menu dropdown-menu-right icons-right">
      
-        <li><a href="login_simple.html"><i class="icon-exit"></i> Logout</a></li>
+        <li><a href="{% url 'login_simple' %}"><i class="icon-exit"></i> Logout</a></li>
       </ul>
     </li>
   </ul>
@@ -66,7 +66,7 @@
          
           <!-- Unboxed grid -->
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="block">
                 <div class="thumbnail"><a href=" {% static "images/demo/users/face1.png" %}" class="thumb-zoom lightbox" title="Eugene A. Kopyov"><img src=" {% static "images/demo/users/face1.png" %}" alt=""></a>
                   <div class="caption text-center">
@@ -78,7 +78,7 @@
              
               
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="block">
                 <div class="thumbnail"><a href="{% static "images/demo/users/face4.png" %}"  class="thumb-zoom lightbox" title="Sophia R. McJamer"> <img src=" {% static "images/demo/users/face4.png" %}"   alt=""> </a>
                   <div class="caption text-center">
@@ -89,7 +89,7 @@
               </div>
               
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="block">
                 <div class="thumbnail"><a href="{% static "images/demo/users/face7.png" %}"  class="thumb-zoom lightbox" title="Noah Kennedy"> <img src=" {% static "images/demo/users/face7.png" %}" alt=""> </a>
                   <div class="caption text-center">
@@ -99,16 +99,7 @@
                 </div>
               </div>
            
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="block">
-                <div class="thumbnail"><a href="{% static "images/demo/users/face10.png" %}"  class="thumb-zoom lightbox" title="Will DeBrandon"> <img src=" {% static "images/demo/users/face10.png" %}" alt=""> </a>
-                  <div class="caption text-center">
-                    <h6>Will DeBrandon <small>Print designer</small></h6>
-                    <div class="icons-group"> <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a> <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a> <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a> </div>
-                  </div>
-                </div>
-              </div>
+            
              
             </div>
           </div>
@@ -121,10 +112,15 @@
       </div>
     </div>
     <!-- page tabs -->
+
+    <a href = "{% url 'search' %}" > Back to Search </a>
+    <br></br>
+
+
    <!-- Footer -->
 <div class="footer clearfix">
   <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
-  <div class="pull-right icons-group"> <a href="/aboutus"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+  <div class="pull-right icons-group"> <a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
 </div>
 <!-- /footer -->
   </div>

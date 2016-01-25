@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+{% include 'include.html' %}
+</head>
+<body class="full-width page-condensed">
+
+<!-- Error wrapper -->
+<div class="error-wrapper text-center">
+  <h1>404</h1>
+  <h6>- Oops, an error has occurred. Page not found! Try Logging in-</h6>
+  <!-- Error content -->
+  <div class="error-content">
+    <div class="row">
+      <div class="col-md-12"> <a href="{% url 'login_simple' %}" class="btn btn-success btn-block">Back to the website</a> 
+      </div>
+    </div>
+  </div>
+  <!-- /error content -->
+</div>
+<!-- /error wrapper -->
+<!-- Footer -->
+<div class="footer clearfix">
+  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
+  <div class="pull-right icons-group"> <a href="{% url 'aboutus' %}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div>
+<!-- /footer -->
+<!-- Scripts -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- /scripts -->
+</body>
+</html>

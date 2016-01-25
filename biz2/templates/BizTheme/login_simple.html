@@ -14,11 +14,10 @@
 <!-- /navbar -->
 <!-- Login wrapper -->
 <div class="login-wrapper">
-  <form action="login_advanced" method="POST" role="form">
+  <form action="{% url 'login_advanced' %}" method="POST" role="form" >
   {% csrf_token %}
     <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">User Login</span>
       <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
-       
       </div>
     </div>
     <div class="well">
@@ -40,12 +39,23 @@
       </div>
     </div>
   </form>
+  
+  <!-- Alert -->
+          <div class="alert alert-warning fade in block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <i class="icon-info"></i>Enter a valid username</div>
+  <!-- /alert -->
 </div>
 <!-- /login wrapper -->
+
+
+
+
+
 <!-- Footer -->
 <div class="footer clearfix">
   <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
-  <div class="pull-right icons-group"> <a href="aboutus.html"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+  <div class="pull-right icons-group"> <a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
 </div>
 <!-- /footer -->
 </body>
