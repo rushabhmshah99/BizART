@@ -4,16 +4,19 @@ from django.template import RequestContext
 from django.shortcuts import render
 from themeSetup.validate import *
 from themeSetup.queryProcessing import *
+from themeSetup.generateGraphData import *
 # Create your views here.
 
 def speech(request):
 	return render(request,'speech.html',{})
+
 def login_simple(request):
 	if 'loggedin' in request.session:
 		del request.session['loggedin']
 	if 'username' in request.session:
 		del request.session['username']
 	return render(request,'login_simple.html',{})
+
 def login_advanced(request):
 	if request.POST:
 		username = request.POST['username']
@@ -26,6 +29,7 @@ def login_advanced(request):
 			return render(request,'login_advanced.html',{'username' : username})
 	else:
 		return redirect('/error/')
+
 def search(request):
 	if request.POST:
 		password = request.POST['password']
@@ -55,4 +59,5 @@ def graph(request):
 	query = request.POST['query']
 	dates = queryProcessing(query)
 	# Do your shit Rushabh
+	calcRevenueWithinTime(2015,1)
 	return render(request,'graph.html',{'query':str(dates)})
