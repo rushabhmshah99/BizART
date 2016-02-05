@@ -49,3 +49,7 @@ def aboutus(request):
 		return redirect('/error/')
 def error(request):
 	return render(request,'404.html',{})
+
+def graph(request):
+	query = request.POST['query']
+	return render(request,'graph.html',{'query':query})

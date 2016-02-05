@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^aboutus/', 'themeSetup.views.aboutus',name = 'aboutus'),
     url(r'^error/', 'themeSetup.views.error',name = 'error'),
     url(r'^speech/', 'themeSetup.views.speech',name = 'error'),
+    url(r'^graph/', 'themeSetup.views.graph',name = 'graph'),
 
 ]

@@ -56,7 +56,7 @@
     <!-- /page header -->
 
     <!-- Search line -->
-    <form action="." method="POST" class="search-line block" role="form">
+    <form action="{% url 'graph' %}" method="POST" class="search-line block" role="form">
     {% csrf_token %}
       <span class="subtitle" align="center"> Logo</span>
       <div class="input-group si-wrapper">
@@ -71,7 +71,7 @@
         
       </div>
       <span class="input-group-btn">
-          <button class="btn btn-primary"  type="button">Search</button>   
+          <button class="btn btn-primary"  type="submit">Search</button>   
         </span>
     </form>
     <!-- /search line -->
