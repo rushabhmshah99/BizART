@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.template import RequestContext
 from django.shortcuts import render
 from themeSetup.validate import *
+from themeSetup.queryProcessing import *
 # Create your views here.
 
 def speech(request):
@@ -52,4 +53,6 @@ def error(request):
 
 def graph(request):
 	query = request.POST['query']
-	return render(request,'graph.html',{'query':query})
+	dates = queryProcessing(query)
+	# Do your shit Rushabh
+	return render(request,'graph.html',{'query':str(dates)})
