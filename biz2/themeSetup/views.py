@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.template import RequestContext
 from django.shortcuts import render
 from themeSetup.validate import *
+import json 
 from themeSetup.queryProcessing import *
 from themeSetup.generateGraphData import *
 # Create your views here.
@@ -56,8 +57,19 @@ def error(request):
 	return render(request,'404.html',{})
 
 def graph(request):
+	months = ['', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+	months2 = ['', 'Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+
 	query = request.POST['query']
 	dates = queryProcessing(query)
 	# Do your shit Rushabh
-	calcRevenueWithinTime(2015,1)
-	return render(request,'graph.html',{'query':str(dates)})
+	month1 = months.index(dates[0]) if months.index(dates[0]) !=-1 else months2.index(dates[0])
+	month2 = months.index(dates[2]) if months.index(dates[0]) !=-1 else months2.index(dates[2])
+	
+	print month1, month2
+	
+
+	rev1 = calcRevenueWithinTime(dates[1], month1)
+	rev2 = calcRevenueWithinTime(dates[3], month2)
+	data = [ [dates[0]+" "+str(dates[1]), rev1], [dates[2]+" "+str(dates[3]), rev2]]
+	return render(request,'graph.html',{'query':json.dumps(data)})
