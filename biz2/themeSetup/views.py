@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import redirect
 from django.template import RequestContext
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from themeSetup.validate import *
 import json 
 from themeSetup.queryProcessing import *
@@ -57,19 +57,23 @@ def error(request):
 	return render(request,'404.html',{})
 
 def graph(request):
-	months = ['', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
-	months2 = ['', 'Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-
 	query = request.POST['query']
-	dates = queryProcessing(query)
-	# Do your shit Rushabh
-	month1 = months.index(dates[0]) if months.index(dates[0]) !=-1 else months2.index(dates[0])
-	month2 = months.index(dates[2]) if months.index(dates[0]) !=-1 else months2.index(dates[2])
-	
-	print month1, month2
-	
+	dates, action = queryProcessing(query)
+	print str(action)
+	print str(action) == "show"
+	if str(action) == "compare":
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateGraph"})
+	elif str(action) == "show":
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateTable"})
 
-	rev1 = calcRevenueWithinTime(dates[1], month1)
-	rev2 = calcRevenueWithinTime(dates[3], month2)
-	data = [ [dates[0]+" "+str(dates[1]), rev1], [dates[2]+" "+str(dates[3]), rev2]]
-	return render(request,'graph.html',{'query':json.dumps(data)})
+def generateGraph(request):
+	if request.POST:
+		dates = request.POST['dates']
+	data = generateResult(dates)
+	return HttpResponse(json.dumps(data), content_type="application/json")
+
+def generateTable(request):
+	if request.POST:
+		dates = request.POST['dates']
+	data = generateProfitLossTable(dates)
+	return HttpResponse(json.dumps(data), content_type="application/json")

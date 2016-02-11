@@ -1,46 +1,88 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Graph</title>
-	<script>
-		function try()
-		{
-			alert();
-		}
-	</script>
-</head>
-<body>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-      	
-      	var query = JSON.parse("{{ query }}".replace(/&quot;/g,'"'));
-        var data = new google.visualization.DataTable();
-  		data.addColumn('string', 'Years');
-  		data.addColumn('number', 'Revenue');
-  		for(i = 0; i < query.length; i++)
-   		 data.addRow([query[i][0], query[i][1]]);
-        var options = {
-          chart: {
-            title: 'Company Performance',
-            
-          },
-         // Required for Material Bar Charts.
-        };
 
-        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+{% include 'include.html' %}
 
-        chart.draw(data, options);
-      }
-    </script>
+<body class="sidebar-wide">
+
+<!-- Navbar -->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header"><a class="navbar-brand" href="#">Logo: BizART </a>
+  </div>
+  <ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
+    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-people"></i><span class="label label-default">2</span></a>
+      <div class="popup dropdown-menu dropdown-menu-right">
+        <div class="popup-header"><a href="#" class="pull-left"><i class="icon-spinner7"></i></a><span>Activity</span><a href="#" class="pull-right"><i class="icon-paragraph-justify"></i></a></div>
+        <ul class="activity">
+          <li> <i class="icon-cart-checkout text-success"></i>
+            <div> <a href="#">Eugene</a> ordered 2 copies of <a href="#">OEM license</a> <span>14 minutes ago</span> </div>
+          </li>
+          <li> <i class="icon-heart text-danger"></i>
+            <div> Your <a href="#">latest post</a> was liked by <a href="#">Audrey Mall</a> <span>35 minutes ago</span> </div>
+          </li>
+          <li> <i class="icon-checkmark3 text-success"></i>
+            <div> Mail server was updated. See <a href="#">changelog</a> <span>About 2 hours ago</span> </div>
+          </li>
+          <li> <i class="icon-paragraph-justify2 text-warning"></i>
+            <div> There are <a href="#">6 new tasks</a> waiting for you. Don't forget! <span>About 3 hours ago</span> </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+   
+
+    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>{{ username }}</span><i class="caret"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right icons-right">
+     
+        <li><a href = "{% url 'login_simple' %}"><i class="icon-exit"></i> Logout</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!-- /navbar -->
 
 
-    <div id="barchart_material" style="width: 900px; height: 500px;"></div>
-	 {{ query }}
-    
+<div class="page-container sidebar-hidden">
 
+  <!-- Page content -->
+  <div class="page-content">
+    <!-- Page header -->
+    <div class="page-header" stye="margin-top: 100px">
+    <img src="{% static "images/loader.gif" %}" style = "margin: 0 auto;" align="center">
+     
+ {% csrf_token %}
+   
+<div class="footer clearfix" >
+  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
+  <div class="pull-right icons-group"> <a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div>   
+
+
+<!-- /footer -->
+  </div>
+  </div>
+  <!-- /page content -->
+</div>
+<!-- /page container -->
 </body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+<script>
+var dates = "\""+JSON.parse("{{ query }}".replace(/&quot;/g,'"'))+"\"";
+
+console.log(dates);
+$.ajax({
+    url: '{% url page %}',
+    type: 'POST',
+    dataType : "json",
+    data: {'csrfmiddlewaretoken':  '{{ csrf_token }}',  'dates': dates },// This is the default though, you don't actually need to always mention it
+    success: function(data) {
+        //alert(data);
+        $(".page-header").html(data);
+    },
+    failure: function(data) { 
+        alert('Got an error dude');
+    }
+}); 
+</script>
 </html>

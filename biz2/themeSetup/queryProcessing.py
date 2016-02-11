@@ -29,10 +29,52 @@ def queryProcessing(query):
 	query = removePunctuations(query)
 	query = query.split(" ")
 	# compare sales or profits or losses or margins
-	comparelist = ["compare","contrast","difference","differentiate","better","worse",]
+	comparelist = ["compare","contrast","difference","differentiate","better","worse","vs"]
+	# list stuff
+	showlist = ["show","list","give","print","tell","display","return","get"]
+	# question
+	questionlist = ["what","which","how","where"]
 	if any(token in query for token in comparelist):
 		return compare(query,comparelist)
+	if any(token in query for token in showlist):
+		return show(query,showlist)
+	if any(token in query for token in questionlist):
+		return question(query,questionlist)
 
+def question(query,questionlist):
+	for token in questionlist:
+		if token in query:
+			query.remove(token)
+	query = removeArticles(query)
+	query = removePrepositions(query)
+	query = removeConjunctions(query)
+	# increase decrease
+	todolist = ["increase","improve","double","reduce","decrease","earn","more","lose","losing","gain","gaining"]
+	if any(token in query for token in todolist):
+		return todo(query,todolist)
+	else:
+		show(query,"")
+
+def todo(query,todolist):
+	for token in query:
+		if token in todolist:
+			return token,"todo"
+
+def show(query,showlist):
+	for token in showlist:
+		if token in query:
+			query.remove(token)
+	query = removeArticles(query)
+	query = removePrepositions(query)
+	query = removeConjunctions(query)
+
+	profit = ["profits","profit","gain","profitable","gain","gaining"]
+	loss = ["loss","losses","losing"]
+	if any(token in query for token in profit):
+		return "profit","show"
+	if any(token in query for token in loss):
+		return "loss","show"
+	
 def compare(query,comparelist):
 	for token in comparelist:
 		if token in query:
@@ -72,7 +114,7 @@ def compare(query,comparelist):
 			endmonth = token
 			query.remove(token)
 			break
-	return [startmonth,startyear,endmonth,endyear]
+	return [startmonth,startyear,endmonth,endyear],"compare"
 
 
 
@@ -88,5 +130,18 @@ queryProcessing(query)
 query = "Was 2014 better than 2015?"
 queryProcessing(query)
 query = "Compare sales of 2014"
-queryProcessing(query)'''
-
+queryProcessing(query)
+query = "show flights going in profit"
+queryProcessing(query)
+query = "How can I earn more"
+print queryProcessing(query)
+query = "Show me the profits"
+print queryProcessing(query)
+query = "How can I earn losses"
+print queryProcessing(query)
+query = "Where am i losing money?"
+print queryProcessing(query)
+query = "List all the flights losing money"
+print queryProcessing(query)'''
+query = "Show flights in profits"
+print queryProcessing(query)
