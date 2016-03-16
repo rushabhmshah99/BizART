@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 {% load static %}
+{% static "" as baseURL %}
 {% include 'include.html' %}
 </head>
 <body class="sidebar-wide">
 <!-- Navbar -->
 <div class="navbar navbar-inverse" role="navigation">
-  <div class="navbar-header"><a class="navbar-brand" href="#">Logo: BizART </a>
+  <div class="navbar-header"><a class="navbar-brand" href="{% url 'search' %}">Logo: BizART </a>
   </div>
   <ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-people"></i><span class="label label-default">2</span></a>
@@ -31,7 +32,7 @@
     </li>
    
 
-    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>{{ username }}</span><i class="caret"></i></a>
+    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="{{baseURL}}/images/users/{{username}}.jpg" alt=""><span>{{ username }}</span><i class="caret"></i></a>
       <ul class="dropdown-menu dropdown-menu-right icons-right">
      
         <li><a href="{% url 'login_simple' %}"><i class="icon-exit"></i> Logout</a></li>
@@ -68,7 +69,7 @@
           <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="block">
-                <div class="thumbnail"><a href=" {% static "images/demo/users/face1.png" %}" class="thumb-zoom lightbox" title="Eugene A. Kopyov"><img src=" {% static "images/demo/users/face1.png" %}" alt=""></a>
+                <div class="thumbnail"><a href=" {% static "images/users/rushabh.jpg" %}" class="thumb-zoom lightbox" title="Eugene A. Kopyov"><img src=" {% static "images/users/rushabh.jpg" %}" alt=""></a>
                   <div class="caption text-center">
                     <h6>Rushabh M. Shah<small>Founder</small></h6>
                     <div class="icons-group"> <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a> <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a> <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a> </div>
@@ -118,10 +119,10 @@
 
 
    <!-- Footer -->
-<div class="footer clearfix">
+ <div class="footer clearfix" style="position:fixed; bottom:0; width:98%">
   <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
-  <div class="pull-right icons-group"> <a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
-</div>
+  <div class="pull-right icons-group">  <a href="{% url 'search'%}"><i class="icon-screen2"></i> &nbsp Back to Search </a><a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div> 
 <!-- /footer -->
   </div>
   <!-- /page content -->

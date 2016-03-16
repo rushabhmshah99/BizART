@@ -59,12 +59,14 @@ def error(request):
 def graph(request):
 	query = request.POST['query']
 	dates, action = queryProcessing(query)
-	print str(action)
-	print str(action) == "show"
+	#findFlights("US-UT", "IN-AS")
 	if str(action) == "compare":
-		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateGraph"})
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateGraph", 'username': request.session['username'] })
 	elif str(action) == "show":
-		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateTable"})
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateTable", 'username': request.session['username'] })
+	elif str(action) == "suggest":
+		# do your shit rushabh
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "_________", 'username': request.session['username'] })
 
 def generateGraph(request):
 	if request.POST:

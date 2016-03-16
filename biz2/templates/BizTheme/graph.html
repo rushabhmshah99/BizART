@@ -1,14 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+{% static "" as baseURL %}
 
 {% include 'include.html' %}
 
 <body class="sidebar-wide">
 
 <!-- Navbar -->
-<div class="navbar navbar-inverse" role="navigation">
-  <div class="navbar-header"><a class="navbar-brand" href="#">Logo: BizART </a>
+<div class="navbar navbar-inverse" role="navigation" style="position:fixed; top:0; width:100%">
+  <div class="navbar-header"><a class="navbar-brand" href="{% url 'search' %}">Logo: BizART </a>
   </div>
   <ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-people"></i><span class="label label-default">2</span></a>
@@ -32,7 +33,7 @@
     </li>
    
 
-    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="images/demo/users/face1.png" alt=""><span>{{ username }}</span><i class="caret"></i></a>
+    <li class="user dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><img src="{{baseURL}}/images/users/{{username}}.jpg" alt=""><span>{{ username }}</span><i class="caret"></i></a>
       <ul class="dropdown-menu dropdown-menu-right icons-right">
      
         <li><a href = "{% url 'login_simple' %}"><i class="icon-exit"></i> Logout</a></li>
@@ -43,30 +44,43 @@
 <!-- /navbar -->
 
 
-<div class="page-container sidebar-hidden">
+<div class="page-container sidebar-hidden" style="margin-top: 50px">
 
   <!-- Page content -->
   <div class="page-content">
     <!-- Page header -->
-    <div class="page-header" stye="margin-top: 100px">
-    <img src="{% static "images/loader.gif" %}" style = "margin: 0 auto;" align="center">
+    <div id="page-header" stye="margin-top: 100px">
+           <br><br><br><br><br><br><br><br>
+          <div class="row" >
+            <div class="" align="center">
+              <div class="block" align="center">
+                <div class="thumbnail" align="center">
+                  <div class="thumb"><img alt="" src="{% static "images/loading.gif" %}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <br><br><br><br><br><br><br><br><br><br><br>
      
  {% csrf_token %}
    
-<div class="footer clearfix" >
-  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
-  <div class="pull-right icons-group"> <a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
-</div>   
+  
 
 
 <!-- /footer -->
   </div>
+  <div class="footer clearfix" style="position:fixed; bottom:0; width:98%">
+  <div class="pull-left">&copy; 2016. BizART <a href="http://themeforest.net/user/Kopyov">A complete Business Intelligence Tool</a></div>
+  <div class="pull-right icons-group">  <a href="{% url 'search'%}"><i class="icon-screen2"></i> &nbsp Back to Search </a><a href="{% url 'aboutus'%}"><i class="icon-screen2"></i> &nbsp About Us </a>  </div>
+</div> 
   </div>
   <!-- /page content -->
 </div>
 <!-- /page container -->
 </body>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+
 <script>
 var dates = "\""+JSON.parse("{{ query }}".replace(/&quot;/g,'"'))+"\"";
 
@@ -78,7 +92,7 @@ $.ajax({
     data: {'csrfmiddlewaretoken':  '{{ csrf_token }}',  'dates': dates },// This is the default though, you don't actually need to always mention it
     success: function(data) {
         //alert(data);
-        $(".page-header").html(data);
+       $("#page-header").html("<br><br>"+data);
     },
     failure: function(data) { 
         alert('Got an error dude');

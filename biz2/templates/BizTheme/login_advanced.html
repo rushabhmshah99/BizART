@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 {% load static %}
+{% static "" as baseURL %}
 {% include 'include.html' %}
 </head>
 <body class="full-width page-condensed">
@@ -18,7 +19,7 @@
   {% csrf_token %}
     <div class="well">
       <div class="thumbnail">
-        <div class="thumb"><img alt="" src="{% static "images/demo/users/face3.png" %}">
+        <div class="thumb"><img alt="" src="{{baseURL}}/images/users/{{username}}.jpg">
          </div>
         <div class="caption text-center">
           <h6>{{ username }}<small>Business Analyst</small></h6>
