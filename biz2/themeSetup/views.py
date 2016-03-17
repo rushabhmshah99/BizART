@@ -35,7 +35,6 @@ def search(request):
 	if request.POST:
 		password = request.POST['password']
 		username = request.POST['username']
-		
 		#validate password here
 		flag = validatePassword(username , password)
 		if(flag is None):
@@ -60,13 +59,16 @@ def graph(request):
 	query = request.POST['query']
 	dates, action = queryProcessing(query)
 	#findFlights("US-UT", "IN-AS")
+	#aprioriFrequentCustomers()
 	if str(action) == "compare":
 		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateGraph", 'username': request.session['username'] })
 	elif str(action) == "show":
 		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateTable", 'username': request.session['username'] })
 	elif str(action) == "suggest":
-		# do your shit rushabh
-		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "_________", 'username': request.session['username'] })
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateBayesian", 'username': request.session['username'] })
+	elif str(action) == "profit":
+		return render(request,'graph.html',{'query':json.dumps(dates), 'page': "generateProfit", 'username': request.session['username'] })
+	
 
 def generateGraph(request):
 	if request.POST:
@@ -74,8 +76,34 @@ def generateGraph(request):
 	data = generateResult(dates)
 	return HttpResponse(json.dumps(data), content_type="application/json")
 
-def generateTable(request):
+def generateProfit(request):
 	if request.POST:
 		dates = request.POST['dates']
-	data = generateProfitLossTable(dates)
+	data = aprioriFrequentCustomers()
+	data += clustering()
+	return HttpResponse(json.dumps(data), content_type="application/json")
+
+def generateTable(request):
+	# dates is either profit or loss or passengers or flights
+	if request.POST:
+		dates = request.POST['dates']
+	dates = ''.join(list(str(dates))[1:len(str(dates))-1])
+	if dates == "profit" or dates == "loss":
+		data = generateProfitLossTable(dates)
+	else:
+		data = showAttributeDetails(dates)
+	return HttpResponse(json.dumps(data), content_type="application/json")
+
+def generateBayesian(request):
+	if request.POST:
+		inpu = request.POST['dates']
+	#inp = ["US-NY", "US-VA"]
+	print inpu
+	data = bayesian([inpu])
+	return HttpResponse(json.dumps(data), content_type="application/json")
+
+def callClustering(request):
+	if request.POST:
+		inpu = request.POST['dates']
+	data = clustering()
 	return HttpResponse(json.dumps(data), content_type="application/json")

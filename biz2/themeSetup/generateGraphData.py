@@ -1,5 +1,7 @@
 import csv
 import datetime
+from themeSetup.bayesian import *
+from themeSetup.apriori import *
 
 months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -51,7 +53,7 @@ def calcRevenueWithinTime(year, month=-1):
 	return rev2      
 #calcRevenueWithinTime(2014)
 
-def populateFlights():
+def calculateRevenue():
 	data  = readFlightData("data/flightData.csv")
 	data2 = [0]*(len(data)+1)
 	rownum = 0
@@ -72,6 +74,13 @@ def populateFlights():
 
 	for x in xrange(1, len(data2)-1):
 		data2[x] = data2[x] - eval(data[x][10]) - eval(data[x][11]) - eval(data[x][12])
+
+	return data2
+
+def populateFlights():
+	
+	data2 = calculateRevenue()
+
 	loss_flight,profit_flight = [],[]
 
 	for i in xrange(1, len(data2)-1):
@@ -154,26 +163,133 @@ def findFlights(source, destination):
 
 			#print ans.strftime("%A")
 			answer_set.append([ans.strftime("%w"), percentage])
-	regression(answer_set)
+	#regression(answer_set)
 	print answer_set
 
-def regression(data):
+def bayesian(input_para):
+	revenue_data = calculateRevenue()
+	flight_data = readFlightData("data/flightData.csv")
+	max_rev = max(revenue_data)
+	min_rev = min(revenue_data)
+	rev_range = (max_rev - min_rev)/3
 
-	x = []
-	y = []
-	n = len(data)
+	training_data = []	
+	for el in xrange(1, len(flight_data)-1):
+		source = flight_data[el][2]+"-"+flight_data[el][3]
+		destination = flight_data[el][4]+"-"+flight_data[el][5]
+		
+		if revenue_data[el] > min_rev and revenue_data[el] < min_rev+rev_range:
+			rev = "Low"
+		elif revenue_data[el] > min_rev+rev_range and revenue_data[el] < min_rev+2*rev_range:
+			rev = "Medium"
+		else:
+			rev = "High"
+
+		capacity = flight_data[el][6]
+
+		training_data.append([source, destination, rev])
+
+	#print training_data	
+	uniqueElements = countUnique(training_data)
+	attribute_list = []
+	for element in uniqueElements:
+		ele = calcOutputProbability(element, uniqueElements.index(element), training_data)
+		attribute_list+= [ele]
+	mainTable = createList(attribute_list, training_data)
+	#print mainTable
+	data = input_para
+	rev_prob = calcOutput(mainTable, data, attribute_list)
+	content = '<div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title">Revenue Probability is '+rev_prob+'</h6></div></div>'
+	return content
+ 
+
+#pass attribute as flights or passenger - query 'show all flights, show all passengers, show competitor flights'  	
+def showAttributeDetails(attribute):
+	
+	if attribute == "passengers" :
+		data = readFlightData("data/passengers.csv")
+	elif attribute == "competitor":
+		data = readFlightData("data/otherFlightData.csv")
+	elif attribute == "flights":
+		data = readFlightData("data/flightData.csv")
+
+
+	content = '<div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Flight Information</h6></div><div class="datatable"><table class="table" id="dataTable"><thead><tr>'
+	for el in data[0]:
+		content+= '<th>'+el+'</th>'
+	content += '</tr></thead><tbody>'
+	data  = data[1:len(data)-1]
 	for row in data:
-		x.append(row[0])
-		y.append(row[1])
-	xmean,ymean,xy,sum1,sum2,sum3 = sum(x)/n,sum(y)/n,0,0,0,0
-	for i in range(n):
-		xy += x[i]*y[i]
-		sum1 += (x[i]-xmean)*(y[i]-ymean)
-		sum2 += (x[i]-xmean)**2
-		sum3 += x[i]**2
-	b1 = xy/sum3
-	b0 = ymean - b1*xmean
+		content += '<tr>'
+		for el in row:
+			content += '<td>'+el+'</td>'
+	content = content + '</tbody></table></div></div>'
+   	
+   	return content
+   		
 
-	xin = int(raw_input("Enter x value\n"))
-	print "The y value is",(b0+b1*xin)
 
+def clustering():
+	data = readFlightData("data/flightData.csv")
+	numberofdays = []
+	passenger_data = []
+	with open("data/passengers_plane.csv", 'rb') as f:
+	    reader = csv.reader(f)
+	    for row in reader:
+	        if row[0]!="Passenger_ID":
+	        	plane_id = int(row[1])
+	        	flight_date = data[plane_id][1].split(' ')[0]
+	        	year, month, day = (int(x) for x in flight_date.split('-'))
+	        	ans = datetime.date(year,month,day)
+	        	ans = ans.strftime("%s")
+	        	numberofdays.append(int(ans))
+	        
+	# perform clustering by K-means
+	no_of_clusters = 6
+	cluster_center = [numberofdays[0],numberofdays[1],numberofdays[2],numberofdays[3],numberofdays[4],numberofdays[5]]
+	clusters = [[],[],[],[],[],[]]
+	previous_clusters = [[]]
+	for count in range(0,10):
+		for i in numberofdays:
+			min = float('inf')
+			cluster_no = -1
+			for j in cluster_center:
+				if abs(i-j) < min:
+					min = abs(i-j)
+					cluster_no = cluster_center.index(j)
+			clusters[cluster_no].append(i)
+		for i in range(0,6):
+			cluster_center[i] = sum(clusters[i])/len(clusters[i])
+		previous_clusters = clusters
+		clusters = [[],[],[],[],[],[]]
+
+	
+	month_density_center = [0]*12  # number of passengers in that month cluster
+	for milisec in cluster_center:
+		date = datetime.datetime.fromtimestamp(milisec)
+		flight_date = str(date).split(' ')[0]
+		year, month, day = (int(x) for x in flight_date.split('-'))
+		month_density_center[month-1] += len(previous_clusters[cluster_center.index(milisec)])
+	
+	frequent_month =  months[month_density_center.index(max(month_density_center))+1]
+	content = ""
+	content += '<div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title">Customer Desnity is concentrated around the month of '+frequent_month+'. Increasing flights around that time will be profitable. </h6></div></div>'
+	return content
+ 
+
+
+
+def aprioriFrequentCustomers():
+	itemSet = []
+	with open("data/passengers.csv", 'rb') as f:
+	    reader = csv.reader(f)
+	    for row in reader:
+	        if row[0]!="Passenger_ID":
+	        	age_group = int(row[2])/10
+	        	itemSet.append([row[1], age_group, row[3]])
+	frequent_sets = applyAlgo(itemSet)
+	content = ""
+	for sets in frequent_sets:	
+		content += '<div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title">Most Frequent Customers are '+str(sets)+'</h6></div></div>'
+	return content
+ 

@@ -1,4 +1,5 @@
 import calendar
+dict = {'alabama':'US-AL', 'alaska':'US-AK', 'arizona':'US-AZ', 'arkansas':'US-AR', 'california':'US-CA', 'colorado':'US-CO', 'connecticut':'US-CT', 'delaware':'US-DE', 'florida':'US-FL', 'georgia':'US-GA', 'hawaii':'US-HI', 'idaho':'US-ID', 'illinois':'US-IL', 'indiana':'US-IN', 'iowa':'US-IA', 'kansas':'US-KS', 'kentucky':'US-KY', 'louisiana':'US-LA', 'maine':'US-ME', 'maryland':'US-MD', 'massachusetts':'US-MA', 'michigan':'US-MI', 'minnesota':'US-MN', 'mississippi':'US-MS', 'missouri':'US-MO', 'montana':'US-MT', 'nebraska':'US-NE', 'nevada':'US-NV', 'new hampshire':'US-NH', 'new jersey':'US-NJ', 'new mexico':'US-NM', 'new york':'US-NY', 'north carolina':'US-NC', 'north dakota':'US-ND', 'ohio':'US-OH', 'oklahoma':'US-OK', 'oregon':'US-OR', 'pennsylvania':'US-PA', 'rhode island':'US-RI', 'south carolina':'US-SC', 'south dakota':'US-SD', 'tennessee':'US-TN', 'texas':'US-TX', 'utah':'US-UT', 'vermont':'US-VT', 'virginia':'US-VA', 'washington':'US-WA', 'west virginia':'US-WV', 'wisconsin':'US-WI', 'wyoming':'US-WY', 'andhra pradesh':'IN-AP', 'arunachal pradesh':'IN-AR', 'assam':'IN-AS', 'bihar':'IN-BR', 'chhattisgarh':'IN-CT', 'goa':'IN-GA', 'gujarat':'IN-GJ', 'haryana':'IN-HR', 'himanchal pradesh':'IN-HP', 'jammu and kashmir':'IN-JK', 'jharkhand':'IN-JH', 'karnataka':'IN-KA', 'kerela':'IN-KL', 'madhya pradesh':'IN-MP', 'maharashtra':'IN-MH', 'manipur':'IN-MN', 'meghalaya':'IN-ML', 'mizoram':'IN-MZ', 'nagaland':'IN-NL', 'odisha':'IN-OR', 'punjab':'IN-PB', 'rajasthan':'IN-RJ', 'sikkim':'IN-SK', 'tamil nadu':'IN-TN', 'telangana':'IN-TG', 'tripura':'IN-TR', 'uttarakhand':'IN-UT', 'uttar pradesh':'IN-UP', 'west bengal':'IN-WB', 'andaman and nicobar islands':'IN-AN', 'chandigarh':'IN-CH', 'dadra and nagar haveli':'IN-DN', 'daman and diu':'IN-DD', 'delhi':'IN-DL', 'lakshadweep':'IN-LD', 'puducherry':'IN-PY', 'abu dhabi':'AE-AZ', 'ajman':'AE-AJ', 'fujairah':'AE-FU', 'sharjah':'AE-SH', 'dubai':'AE-DU', 'ras al khaymah':'AE-RK', 'umm al-quwain':'AE-UQ'}
 def removeArticles(query):
 	articles = ["a","an","the"]
 	for token in query:
@@ -17,6 +18,12 @@ def removeConjunctions(query):
 		if token in conjunctions:
 			query.remove(token)
 	return query
+def removeExtraWords(query):
+	extrawords = ["all","information","details","are"]
+	for token in query:
+		if token in extrawords:
+			query.remove(token)
+	return query
 def removePunctuations(query):
 	punctuations = ['?',',','!',"."]
 	for i in query:
@@ -24,7 +31,6 @@ def removePunctuations(query):
 			query = query.replace('?','')
 	return query
 def AreaCodeMapping(commonName):
-	dict = {'alabama':'US-AL', 'alaska':'US-AK', 'arizona':'US-AZ', 'arkansas':'US-AR', 'california':'US-CA', 'colorado':'US-CO', 'connecticut':'US-CT', 'delaware':'US-DE', 'florida':'US-FL', 'georgia':'US-GA', 'hawaii':'US-HI', 'idaho':'US-ID', 'illinois':'US-IL', 'indiana':'US-IN', 'iowa':'US-IA', 'kansas':'US-KS', 'kentucky':'US-KY', 'louisiana':'US-LA', 'maine':'US-ME', 'maryland':'US-MD', 'massachusetts':'US-MA', 'michigan':'US-MI', 'minnesota':'US-MN', 'mississippi':'US-MS', 'missouri':'US-MO', 'montana':'US-MT', 'nebraska':'US-NE', 'nevada':'US-NV', 'new hampshire':'US-NH', 'new jersey':'US-NJ', 'new mexico':'US-NM', 'new york':'US-NY', 'north carolina':'US-NC', 'north dakota':'US-ND', 'ohio':'US-OH', 'oklahoma':'US-OK', 'oregon':'US-OR', 'pennsylvania':'US-PA', 'rhode island':'US-RI', 'south carolina':'US-SC', 'south dakota':'US-SD', 'tennessee':'US-TN', 'texas':'US-TX', 'utah':'US-UT', 'vermont':'US-VT', 'virginia':'US-VA', 'washington':'US-WA', 'west virginia':'US-WV', 'wisconsin':'US-WI', 'wyoming':'US-WY', 'andhra pradesh':'IN-AP', 'arunachal pradesh':'IN-AR', 'assam':'IN-AS', 'bihar':'IN-BR', 'chhattisgarh':'IN-CT', 'goa':'IN-GA', 'gujarat':'IN-GJ', 'haryana':'IN-HR', 'himanchal pradesh':'IN-HP', 'jammu and kashmir':'IN-JK', 'jharkhand':'IN-JH', 'karnataka':'IN-KA', 'kerela':'IN-KL', 'madhya pradesh':'IN-MP', 'maharashtra':'IN-MH', 'manipur':'IN-MN', 'meghalaya':'IN-ML', 'mizoram':'IN-MZ', 'nagaland':'IN-NL', 'odisha':'IN-OR', 'punjab':'IN-PB', 'rajasthan':'IN-RJ', 'sikkim':'IN-SK', 'tamil nadu':'IN-TN', 'telangana':'IN-TG', 'tripura':'IN-TR', 'uttarakhand':'IN-UT', 'uttar pradesh':'IN-UP', 'west bengal':'IN-WB', 'andaman and nicobar islands':'IN-AN', 'chandigarh':'IN-CH', 'dadra and nagar haveli':'IN-DN', 'daman and diu':'IN-DD', 'delhi':'IN-DL', 'lakshadweep':'IN-LD', 'puducherry':'IN-PY', 'abu dhabi':'AE-AZ', 'ajman':'AE-AJ', 'fujairah':'AE-FU', 'sharjah':'AE-SH', 'dubai':'AE-DU', 'ras al khaymah':'AE-RK', 'umm al-quwain':'AE-UQ'}
 	return dict[commonName]
 def queryProcessing(query):
 	query = query.lower()
@@ -55,6 +61,7 @@ def suggest(query,suggestlist):
 	query = removeArticles(query)
 	query = removePrepositions(query)
 	query = removeConjunctions(query)
+	query = removeExtraWords(query)
 	newflightlist = ["frequency","flight","flights","openings","new","opportunities","more","required"]
 	if any(token in query for token in newflightlist):
 		for token in newflightlist:
@@ -63,17 +70,18 @@ def suggest(query,suggestlist):
 		
 		# hence query = "source, destination". 
 		# Map the source and destination to their respective country and state codes
-		if len(query) is 2:
-			source = AreaCodeMapping(query[0])
-			dest = AreaCodeMapping(query[1])
-		elif len(query) is 1:
-			source = AreaCodeMapping(query[0])
-			dest = -1
-		elif len(query) is 0:
-			source = -1
-			dest = -1
 
-		return [source,dest],"suggest"
+	for token in query:
+		if token in dict:
+			source = AreaCodeMapping(token)
+			query.remove(token)
+			break
+	for token in query:
+		if token in dict:
+			dest = AreaCodeMapping(token)
+			query.remove(token)
+			break
+	return [source,dest],"suggest"
 
 
 
@@ -84,9 +92,10 @@ def question(query,questionlist):
 	query = removeArticles(query)
 	query = removePrepositions(query)
 	query = removeConjunctions(query)
+	query = removeExtraWords(query)
 	# increase decrease
 	todolist = ["increase","improve","double","reduce","decrease","earn","more","lose","gain","gaining"]
-	suggestlist = ["new","flights","openings","opportunities"]
+	suggestlist = ["new","flights","openings","opportunities","flight","open"]
 	if any(token in query for token in todolist):
 		return todo(query,todolist)
 	elif any(token in query for token in suggestlist):
@@ -97,7 +106,7 @@ def question(query,questionlist):
 def todo(query,todolist):
 	for token in query:
 		if token in todolist:
-			return token,"todo"
+			return token,"profit"
 
 def show(query,showlist):
 	for token in showlist:
@@ -106,12 +115,22 @@ def show(query,showlist):
 	query = removeArticles(query)
 	query = removePrepositions(query)
 	query = removeConjunctions(query)
+	query = removeExtraWords(query)
 	profit = ["profits","profit","gain","profitable","gain","gaining"]
 	loss = ["loss","losses","losing"]
+	attribue_flights = ["flights","flight","plane","planes"]
+	attribute_passengers = ["passengers","passengers"]
+	attribute_competitor = ["competitor","competitors"]
 	if any(token in query for token in profit):
 		return "profit","show"
-	if any(token in query for token in loss):
+	elif any(token in query for token in loss):
 		return "loss","show"
+	elif any(token in query for token in attribue_flights):
+		return "flights","show"
+	elif any(token in query for token in attribute_passengers):
+		return "passengers","show"
+	elif any(token in query for token in attribute_competitor):
+		return "competitor","show"
 	
 def compare(query,comparelist):
 	for token in comparelist:
@@ -120,7 +139,7 @@ def compare(query,comparelist):
 	query = removeArticles(query)
 	query = removePrepositions(query)
 	query = removeConjunctions(query)
-
+	query = removeExtraWords(query)
 
 	months = [x.lower() for x in list(calendar.month_name)]
 	months_abbr = [x.lower() for x in list(calendar.month_abbr)]
@@ -184,6 +203,21 @@ print queryProcessing(query)
 query = "Show flights in profits"
 print queryProcessing(query)
 query = "suggest new flight openings from delhi to maharashtra"
-query = "Should I increase the frequency of flights from A to B"
+query = "Should I increase the frequency of flights from delhi to maharashtra"
 query = "Is a new flight from A to B required?"
+query = "what will be my revenue on opening new flights from Delhi to Maharashtra?"
+
+
+
+clustering K means
+#dates and avg revenue convert dates to miliseconds
+cost
+male female passengers related to competitors
+occupation of passengers
+age group
+#UI dashboard
+baysian predict if new flight is in profit or loss
+apriori
+simple query processing
+
 '''

@@ -29,5 +29,7 @@ urlpatterns = [
     url(r'^graph/', 'themeSetup.views.graph',name = 'graph'),
     url(r'^generateGraph/', 'themeSetup.views.generateGraph',name = 'generateGraph'),
     url(r'^generateTable/', 'themeSetup.views.generateTable',name = 'generateTable'),
+    url(r'^generateProfit/', 'themeSetup.views.generateProfit',name = 'generateProfit'),
+    url(r'^generateBayesian/', 'themeSetup.views.generateBayesian',name = 'generateBayesian'),
 
 ]
