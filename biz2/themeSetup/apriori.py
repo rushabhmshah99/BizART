@@ -1,4 +1,4 @@
-s = 1300
+s = 1250
 alpha = 80
 
 def getCount(items, itemSet):

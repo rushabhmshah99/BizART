@@ -75,12 +75,11 @@ def calculateRevenue():
 	for x in xrange(1, len(data2)-1):
 		data2[x] = data2[x] - eval(data[x][10]) - eval(data[x][11]) - eval(data[x][12])
 
-	return data2
+	return data2, data
 
 def populateFlights():
 	
-	data2 = calculateRevenue()
-
+	data2, data = calculateRevenue()
 	loss_flight,profit_flight = [],[]
 
 	for i in xrange(1, len(data2)-1):
@@ -123,7 +122,6 @@ def generateResult(dates):
 def generateProfitLossTable(data):
 	loss_flight,profit_flight = populateFlights()
 	a=[]
-	data = data[1:len(data)-1]
 	if data == "loss":
 		a = loss_flight
 	elif data == "profit":
@@ -167,8 +165,8 @@ def findFlights(source, destination):
 	print answer_set
 
 def bayesian(input_para):
-	revenue_data = calculateRevenue()
-	flight_data = readFlightData("data/flightData.csv")
+	revenue_data, flight_data = calculateRevenue()
+
 	max_rev = max(revenue_data)
 	min_rev = min(revenue_data)
 	rev_range = (max_rev - min_rev)/3
@@ -289,7 +287,12 @@ def aprioriFrequentCustomers():
 	        	itemSet.append([row[1], age_group, row[3]])
 	frequent_sets = applyAlgo(itemSet)
 	content = ""
-	for sets in frequent_sets:	
-		content += '<div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title">Most Frequent Customers are '+str(sets)+'</h6></div></div>'
+	for sets in frequent_sets:
+		gender = "Male"	
+		if sets[1]=='M':
+			gender = "Male"
+		else:
+			gender = "Female"
+		content += '<div class="panel panel-default"><div class="panel-heading"><h6 class="panel-title">Most Frequent Customers are in the age group '+str(int(sets[0])*10)+' to '+str(int(sets[0])*10+10)+', are '+ gender + ' working as  '+ sets[2] +'</h6></div></div>'
 	return content
  
